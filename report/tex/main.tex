@@ -1,0 +1,63 @@
+\documentclass{article}
+
+\usepackage[LGR, T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[greek,english]{babel}
+\usepackage{alphabeta}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{float}
+\usepackage{hyperref}
+
+\graphicspath{{../images/}}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+}
+
+
+\title{
+  \includegraphics[height=3cm]{auth.png}\\
+  \large{Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης}\\
+  \large{Τμήμα Ηλεκτρολόγων Μηχανικών Και Μηχανικών Υπολογιστών}\\
+  \vspace{2cm} 
+  \LARGE{Τεχνολογία Ήχου Και Εικόνας\\Κατηγοριοποίηση Καρδιακών Ήχων} 
+  \vspace{3cm} 
+}
+
+\author{
+  Μουστάκας Γεώργιος 9365\\
+  Σαρρής Αναστάσιος Λουκάς 9451\\
+  Στεφανίδης Ιωάννης 9587\\
+  Σφυράκης Εμμανουήλ 9507
+  \vspace{3cm}
+}
+
+\date{\today}
+\newpage 
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+% Εισαγωγή
+\include{intro}
+
+% Καρδιακοί Ήχοι
+\include{heart_sounds}
+
+% Η προσεγγιση μας
+\include{our_approach}
+
+% Εργαλεία
+\include{tools}
+
+% Αποτελέσματα
+\include{results}
+
+% Συζήτηση
+\include{discuss}
+
+\end{document}
