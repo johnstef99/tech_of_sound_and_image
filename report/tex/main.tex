@@ -9,6 +9,8 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{chngcntr}
+\usepackage{indentfirst}
+\usepackage[a4paper]{geometry}
 \counterwithin{figure}{section}
 
 \graphicspath{{../images/}}
@@ -17,6 +19,8 @@
   colorlinks=true,
   linkcolor=blue,
 }
+
+\AtBeginDocument{\renewcommand\contentsname{Περιεχόμενα}}
 
 
 \title{
@@ -42,6 +46,8 @@
 \begin{document}
 
 \maketitle
+
+\newpage
 \tableofcontents
 
 % Εισαγωγή
