@@ -28,6 +28,9 @@
 # SOFTWARE.
 #
 
+# fix sed for macos
+LC_CTYPE=C
+
 MAKEFILE4LATEX_VERSION = 0.8.0
 
 define help_message
