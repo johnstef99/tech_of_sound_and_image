@@ -10,7 +10,7 @@
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{indentfirst}
-
+\usepackage{url}
 \usepackage{chngcntr}
 \counterwithin{figure}{section}
 
@@ -20,7 +20,10 @@
 \AtBeginDocument{\renewcommand\refname{Αναφορές}}
 \AtBeginDocument{\renewcommand\contentsname{Περιεχόμενα}}
 
-
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+}
 \title{
   \includegraphics[height=3cm]{auth.png}\\
   \large{Αριστοτέλειο Πανεπιστήμιο Θεσσαλονίκης}\\
@@ -66,7 +69,8 @@
 % % Συζήτηση
 % \include{discuss}
 
-\bibliographystyle{plain}
+\bibliographystyle{ieeetran}
 \bibliography{references}
+
 
 \end{document}
