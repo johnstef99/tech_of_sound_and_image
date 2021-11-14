@@ -6,13 +6,11 @@
 \usepackage[a4paper]{geometry}
 
 \usepackage{alphabeta}
-\usepackage{verbatim}
 \usepackage{float}
 \usepackage{hyperref}
 \usepackage{indentfirst}
 \usepackage{url}
 \usepackage{chngcntr}
-\usepackage{neuralnetwork}
 \counterwithin{figure}{section}
 
 \usepackage{graphicx}
@@ -45,15 +43,18 @@
   \vspace{3cm}
 }
 
-\date{\today}
+\date{14 Νοεμβρίου 2021}
 \newpage 
 
 \begin{document}
 
+\pagenumbering{gobble}
 \maketitle
+
 
 \newpage
 \tableofcontents
+\pagenumbering{arabic}
 
 % Εισαγωγή
 \include{intro}
