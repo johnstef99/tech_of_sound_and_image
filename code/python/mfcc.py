@@ -34,6 +34,7 @@ def get_s1(name: str):
         name of the sample.
         Ex: for sample a0001.wav the name is a0001
 
+
     Returns
     -------
     s1   : int
@@ -41,11 +42,12 @@ def get_s1(name: str):
 
     """
     s1_df: pd.DataFrame = pd.read_csv('../matlab/s1.csv', sep=',')
-    s1 = s1_df.loc[s1_df['audio'] == name]['s1'][0]
+    s1_df.set_index('audio', inplace=True)
+    s1 = s1_df.loc[name].s1
     return s1
 
 
-def generate_mfcc(name: str, savefig: bool = False):
+def generate_mfcc(name: str, savefig: bool = False, show: bool = False):
     """
     Parameters
     ----------
@@ -55,6 +57,9 @@ def generate_mfcc(name: str, savefig: bool = False):
 
     savefig : bool
         if True the figure of the heatmap will be saved to name.png
+
+    show : bool
+        if True plt.show() will run
 
     Returns
     -------
@@ -70,13 +75,14 @@ def generate_mfcc(name: str, savefig: bool = False):
     samples = signal[s1_index:(s1_index+3*sr)]
     mfccs = mfcc(samples, sr, winlen=0.02, winstep=0.01, appendEnergy=True)
     mfccs = mfccs.T
-    plt.figure(figsize=(300, 13))
-    plt.imshow(mfccs)
     if(savefig):
+        plt.figure(figsize=(300, 13))
+        plt.imshow(mfccs)
         plt.savefig(f"{name}.png", bbox_inches='tight')
+        plt.close()
     else:
-        plt.show()
+        if(show):
+            plt.figure(figsize=(300, 13))
+            plt.imshow(mfccs)
+            plt.show()
     return mfccs
-
-
-generate_mfcc('a0001', savefig=True)
