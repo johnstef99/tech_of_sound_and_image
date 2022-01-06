@@ -39,7 +39,7 @@ def main():
 
     log.info('Creating model')
     cnn = models.Sequential()
-    cnn.add(Conv2D(32, (3, 3), activation='tanh', input_shape=(13, 299, 1)))
+    cnn.add(Conv2D(32, (3, 3), activation='tanh', input_shape=(13, 300, 1)))
     cnn.add(MaxPooling2D((1, 10)))
 
     cnn.add(Conv2D(64, (3, 3), activation='tanh'))
@@ -66,7 +66,3 @@ def main():
     test_loss, test_acc = cnn.evaluate(x_test, y_test)
 
     log.info(f"Accuracy: {test_acc}")
-
-
-if __name__ == '__main__':
-    main()

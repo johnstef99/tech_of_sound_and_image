@@ -77,7 +77,7 @@ def generate_mfcc(name: str, savefig: bool = False, show: bool = False):
     s1_index = int(np.round((s1_ms) * sr/1000)) - 1
     s1_index = s1_index if s1_index >= 0 else 0  # check for negative index
     # get samples from s1 to s1 + 3 seconds
-    samples = signal[s1_index:(s1_index+3*sr)]
+    samples = signal[s1_index:(s1_index+20+3*sr)]
     mfccs = mfcc(samples, sr, winlen=0.02, winstep=0.01, appendEnergy=True)
     mfccs = mfccs.T
     if(savefig):
@@ -107,13 +107,13 @@ def generate_or_load_mfccs(samples: np.ndarray = None):
         data = np.array(list(map(generate_mfcc, samples)))
         log.info('Done generatinge MFCCs')
 
-        data = data.reshape(len(data), 13*299)
+        data = data.reshape(len(data), 13*300)
         mfccs = pd.DataFrame(data)
         mfccs.set_index(samples, inplace=True)
         mfccs.to_csv('./mfccs.csv', index_label='audio')
 
     mfccs = np.array(mfccs)
-    mfccs = mfccs.reshape(len(mfccs), 13, 299)
+    mfccs = mfccs.reshape(len(mfccs), 13, 300)
     mfccs = np.array([normalize(i) for i in mfccs])
-    mfccs = mfccs.reshape(len(mfccs), 13, 299, 1)
+    mfccs = mfccs.reshape(len(mfccs), 13, 300, 1)
     return mfccs
