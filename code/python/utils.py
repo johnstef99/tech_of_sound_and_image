@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-def plot_history(history):
+def setup():
     fig = plt.figure(figsize=(12, 6))
     ax = fig.add_subplot(111)
     ax.xaxis.label.set_color('white')
@@ -12,6 +12,10 @@ def plot_history(history):
     ax.spines['top'].set_color('white')
     ax.spines['right'].set_color('white')
     ax.spines['bottom'].set_color('white')
+
+
+def plot_history(history):
+    setup()
     plt.plot(history.history['accuracy'], label='accuracy')
     plt.plot(history.history['val_accuracy'], label='val_accuracy')
     plt.xlabel('Epoch')
@@ -19,3 +23,13 @@ def plot_history(history):
     plt.ylim([0.7, 1])
     plt.legend(loc='best', framealpha=0, labelcolor='white')
     plt.savefig('accuracy.png', dpi=200, transparent=True)
+    plt.close()
+
+    setup()
+    plt.plot(history.history['loss'], label='loss')
+    plt.plot(history.history['val_loss'], label='val_loss')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.legend(loc='best', framealpha=0, labelcolor='white')
+    plt.savefig('loss.png', dpi=200, transparent=True)
+    plt.close()
