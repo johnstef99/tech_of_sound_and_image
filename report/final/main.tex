@@ -1,0 +1,14 @@
+\documentclass[12pt]{article}
+\include{config}
+\subfile{sections/title}
+   
+\begin{document}
+\pagenumbering{gobble} % to remove numbering for first page
+\maketitle \newpage
+\pagenumbering{arabic}
+\tableofcontents \newpage
+
+\section{Εισαγωγή}
+\subfile{sections/intro}
+
+\end{document}
