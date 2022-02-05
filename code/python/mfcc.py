@@ -27,7 +27,9 @@ def read_audio(name: str):
         sampling rate of ``y``
     """
     path = '../../../physionet/samples/all'
+    #windowspath = 'C:\\Users\\Anastasios Sarris\\Desktop\\Samples'
     audio_file = f"{path}/{name}.wav"
+    #audio_file = f"{windowspath}\\{name}.wav"
     return load_wav(audio_file, sr=2000)
 
 
