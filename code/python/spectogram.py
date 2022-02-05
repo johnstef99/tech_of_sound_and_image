@@ -32,3 +32,29 @@ def generateMel_Spectogram(name: str):
     #fig.colorbar(img, ax=ax, format='%+2.0f dB')
     #ax.set(title="Mel-Frequency Spectogram")
     return ps_dB
+
+
+def generate_or_load_spectograms(samples: np.ndarray = None):
+    if(exists('./spectograms.csv')):
+        spectograms = pd.read_csv('./spectograms.csv', index_col='audio')
+    else:
+        if(samples is None):
+            log.error(
+                '''spectograms.csv file doesn\'n exists and you havent passed
+                an array of samples to generate it''')
+            exit(1)
+
+        log.info(f'Start generating Spectograms for {len(samples)} samples')
+        data = np.array(list(map(generate_melspectogram, samples)))
+        log.info('Done generatinge Spectograms')
+
+        data = data.reshape(len(data), 13*300)
+        spectograms = pd.DataFrame(data)
+        spectograms.set_index(samples, inplace=True)
+        spectograms.to_csv('./spectograms.csv', index_label='audio')
+
+    spectograms = np.array(spectograms)
+    spectograms = spectograms.reshape(len(spectograms), 13, 300)
+    spectograms = np.array([normalize(i) for i in spectograms])
+    spectograms = spectograms.reshape(len(spectograms), 13, 300, 1)
+    return spectograms
