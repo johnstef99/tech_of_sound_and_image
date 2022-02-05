@@ -1,19 +1,34 @@
-from signal import signal
-from turtle import shape
-import numpy as np
 import librosa
-import matplotlib.pyplot as plt
-from mfcc import read_audio, get_s1
+import logging
+import numpy as np
+import pandas as pd
 import librosa.display
+from os.path import exists
+from mfcc import read_audio, get_s1
+from librosa.display import specshow
+from matplotlib import pyplot as plt
+from sklearn.preprocessing import normalize
+
+log = logging.getLogger(__name__)
 
 
-def generateMel_Spectogram(name: str):
+def generate_melspectogram(name: str, savefig: bool = False, show: bool = False):
     """
     Parameters
     ----------
     name    : str
         name of the sample.
         Ex: for sample a0001.wav the name is a0001
+
+    savefig : bool
+        if True the figure of the heatmap will be saved to name.png
+
+    show : bool
+        if True plt.show() will run
+    Returns
+    -------
+    mel_spectogram   : np.ndarray
+        array that contains the values of mel spectogram
     """
     signal, sr = read_audio(name)
     s1_ms = get_s1(name)
@@ -22,15 +37,25 @@ def generateMel_Spectogram(name: str):
     s1_index = s1_index if s1_index >= 0 else 0
     # get samples from s1 to s1 + 3 seconds
     samples = signal[s1_index:(s1_index-20+3*sr)]
-    print(samples.shape)
     ps = librosa.feature.melspectrogram(
-        y=samples, sr=sr, hop_length=int(sr*0.01), win_length=int(sr*0.005), n_mels=13)
+        y=samples, sr=sr, hop_length=int(sr*0.01),
+        win_length=int(sr*0.005), n_mels=13)
     ps_dB = librosa.power_to_db(ps, ref=np.max)
-    #fig, ax = plt.subplots()
-    img = librosa.display.specshow(ps_dB, sr=sr, x_axis="time",
-                                   y_axis="mel", hop_length=int(sr*0.01), ax=ax)
-    #fig.colorbar(img, ax=ax, format='%+2.0f dB')
-    #ax.set(title="Mel-Frequency Spectogram")
+    if(savefig):
+        fig, ax = plt.subplots(figsize=(40, 13))
+        img = specshow(ps_dB, sr=sr, x_axis="time", y_axis="mel", ax=ax,
+                       hop_length=int(sr*0.01))
+        fig.colorbar(img, ax=ax, format='%+2.0f dB')
+        ax.set(title=f"Mel-frequency spectrogram of {name}")
+        fig.savefig(f"{name}_spectogram.png", bbox_inches='tight', dpi=400)
+    else:
+        if(show):
+            fig, ax = plt.subplots()
+            img = specshow(ps_dB, sr=sr, x_axis="time", y_axis="mel", ax=ax,
+                           hop_length=int(sr*0.01))
+            fig.colorbar(img, ax=ax, format='%+2.0f dB')
+            ax.set(title=f"Mel-frequency spectrogram of {name}")
+            fig.show()
     return ps_dB
 
 
