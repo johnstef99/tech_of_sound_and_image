@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 from os.path import exists
 import logging
+from librosa.display import specshow
 
 log = logging.getLogger(__name__)
 
@@ -27,9 +28,7 @@ def read_audio(name: str):
         sampling rate of ``y``
     """
     path = '../../../physionet/samples/all'
-    #windowspath = 'C:\\Users\\Anastasios Sarris\\Desktop\\Samples'
     audio_file = f"{path}/{name}.wav"
-    #audio_file = f"{windowspath}\\{name}.wav"
     return load_wav(audio_file, sr=2000)
 
 
@@ -83,15 +82,20 @@ def generate_mfcc(name: str, savefig: bool = False, show: bool = False):
     mfccs = mfcc(samples, sr, winlen=0.02, winstep=0.01, appendEnergy=True)
     mfccs = mfccs.T
     if(savefig):
-        plt.figure(figsize=(300, 13))
-        plt.imshow(mfccs)
-        plt.savefig(f"{name}.png", bbox_inches='tight')
-        plt.close()
+        fig, ax = plt.subplots(figsize=(40, 13))
+        img = specshow(mfccs, sr=sr, x_axis="time", ax=ax,
+                       hop_length=int(sr*0.01))
+        fig.colorbar(img, ax=ax)
+        ax.set(title=f"MFCC of {name}")
+        fig.savefig(f"{name}_mfcc.png", bbox_inches='tight', dpi=400)
     else:
         if(show):
-            plt.figure(figsize=(300, 13))
-            plt.imshow(mfccs)
-            plt.show()
+            fig, ax = plt.subplots()
+            img = specshow(mfccs, sr=sr, x_axis="time", ax=ax,
+                           hop_length=int(sr*0.01))
+            fig.colorbar(img, ax=ax)
+            ax.set(title=f"MFCC of {name}")
+            fig.show()
     return mfccs
 
 
