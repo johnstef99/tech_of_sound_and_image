@@ -5,6 +5,7 @@ import logging
 import pandas as pd
 import tensorflow as tf
 from mfcc import generate_or_load_mfccs
+from spectogram import generate_or_load_spectograms
 from utils import plot_history
 from tensorflow.keras.utils import plot_model
 from tensorflow.keras.losses import BinaryCrossentropy
@@ -20,11 +21,14 @@ def get_labels():
     return pd.read_csv('../../../physionet/samples/labels.csv')
 
 
-def get_dataset():
+def get_dataset(use_spectograms: bool = False):
     labels = get_labels()
-    mfccs = generate_or_load_mfccs(labels.audio.values)
+    audios = labels.audio.values
+    log.info(f"Using spectograms: {use_spectograms}")
+    data = generate_or_load_spectograms(audios) if(
+        use_spectograms) else generate_or_load_mfccs(audios)
     labels = labels.label.replace(-1, 0).values.reshape(len(labels), 1)
-    x_train, x_test, y_train, y_test = train_test_split(mfccs,
+    x_train, x_test, y_train, y_test = train_test_split(data,
                                                         labels,
                                                         test_size=0.40,
                                                         random_state=69)
@@ -66,7 +70,7 @@ def train_model(model, x_train, x_test, y_train, y_test):
 
 
 def main():
-    x_train, x_test, y_train, y_test = get_dataset()
+    x_train, x_test, y_train, y_test = get_dataset(use_spectograms=False)
     cnn = create_model()
     history = train_model(cnn, x_train, x_test, y_train, y_test)
     plot_model(cnn, 'model.png', show_layer_names=False,
