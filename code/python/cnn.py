@@ -1,14 +1,14 @@
-from sklearn.model_selection import train_test_split
-from tensorflow.keras import models
-from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
 import logging
 import pandas as pd
 import tensorflow as tf
-from mfcc import generate_or_load_mfccs
-from spectogram import generate_or_load_spectograms
+from keras import models
 from utils import plot_history
-from tensorflow.keras.utils import plot_model
-from tensorflow.keras.losses import BinaryCrossentropy
+from keras.utils import plot_model
+from mfcc import generate_or_load_mfccs
+from keras.losses import BinaryCrossentropy
+from spectogram import generate_or_load_spectograms
+from sklearn.model_selection import train_test_split
+from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
 
 # config logger
 logging.basicConfig(level=logging.INFO,
