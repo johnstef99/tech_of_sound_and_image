@@ -3,13 +3,12 @@ import pandas as pd
 import tensorflow as tf
 from keras import models
 from utils import plot_history
-from keras.utils import plot_model
 from mfcc import generate_or_load_mfccs
 from keras.losses import BinaryCrossentropy
+from tensorflow.keras.utils import plot_model
 from spectogram import generate_or_load_spectograms
 from sklearn.model_selection import train_test_split
 from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
-
 # config logger
 logging.basicConfig(level=logging.INFO,
                     format="---------------------\n%(levelname)s %(asctime)s:\n%(message)s",
