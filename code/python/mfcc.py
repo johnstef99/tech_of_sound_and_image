@@ -1,14 +1,17 @@
-from sklearn.preprocessing import normalize
-from librosa import load as load_wav
-from matplotlib import pyplot as plt
-from python_speech_features import mfcc
+import logging
+import matplotlib
 import numpy as np
 import pandas as pd
 from os.path import exists
-import logging
+from librosa import load as load_wav
+from matplotlib import pyplot as plt
 from librosa.display import specshow
+from python_speech_features import mfcc
+from sklearn.preprocessing import normalize
 
 log = logging.getLogger(__name__)
+font = {'size': 22}
+matplotlib.rc('font', **font)
 
 
 def read_audio(name: str):

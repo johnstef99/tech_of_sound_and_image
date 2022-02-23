@@ -1,5 +1,6 @@
 import librosa
 import logging
+import matplotlib
 import numpy as np
 import pandas as pd
 import librosa.display
@@ -10,6 +11,8 @@ from matplotlib import pyplot as plt
 from sklearn.preprocessing import normalize
 
 log = logging.getLogger(__name__)
+font = {'size': 22}
+matplotlib.rc('font', **font)
 
 
 def generate_melspectogram(name: str, savefig: bool = False, show: bool = False):
