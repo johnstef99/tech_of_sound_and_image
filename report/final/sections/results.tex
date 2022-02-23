@@ -1,0 +1,40 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{../images/}}}
+
+\begin{document}
+
+\subsection{Χρήση MFCC}
+\begin{figure}[H]
+	\center
+	\includegraphics[width=0.8\textwidth]{../images/accuracy_mfcc.png}
+	\caption{Ακρίβεια νευρονικού δικτύου ανά εποχή με χρήση \textbf{MFCCs} ως
+		είσοδο}
+	\label{accuracy_mfcc}
+\end{figure}
+\begin{figure}[H]
+	\center
+	\includegraphics[width=0.8\textwidth]{../images/loss_mfcc.png}
+	\caption{Απώλειες νευρονικού δικτύου ανά εποχή με χρήση \textbf{MFCCs} ως
+		είσοδο}
+	\label{loss_mfcc}
+\end{figure}
+
+
+\subsection{Χρήση Mel spectogram}
+\begin{figure}[H]
+	\center
+	\includegraphics[width=0.8\textwidth]{../images/accuracy_spectogram.png}
+	\caption{Ακρίβεια νευρονικού δικτύου ανά εποχή με χρήση \textbf{spectogram} ως
+		είσοδο}
+	\label{accuracy_spectogram}
+\end{figure}
+\begin{figure}[H]
+	\center
+	\includegraphics[width=0.8\textwidth]{../images/loss_spectogram.png}
+	\caption{Απώλειες νευρονικού δικτύου ανά εποχή με χρήση \textbf{spectogram} ως
+		είσοδο}
+	\label{loss_spectogram}
+\end{figure}
+
+
+\end{document}
