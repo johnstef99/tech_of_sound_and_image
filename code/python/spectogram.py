@@ -83,6 +83,7 @@ def generate_or_load_spectograms(samples: np.ndarray = None):
 
     spectograms = np.array(spectograms)
     spectograms = spectograms.reshape(len(spectograms), 13, 300)
+    spectograms = np.array([i+abs(np.min(i)) for i in spectograms])
     spectograms = np.array([normalize(i) for i in spectograms])
     spectograms = spectograms.reshape(len(spectograms), 13, 300, 1)
     return spectograms

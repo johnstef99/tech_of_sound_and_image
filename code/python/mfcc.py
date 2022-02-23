@@ -123,6 +123,7 @@ def generate_or_load_mfccs(samples: np.ndarray = None):
 
     mfccs = np.array(mfccs)
     mfccs = mfccs.reshape(len(mfccs), 13, 300)
+    mfccs = np.array([i+abs(np.min(i)) for i in mfccs])
     mfccs = np.array([normalize(i) for i in mfccs])
     mfccs = mfccs.reshape(len(mfccs), 13, 300, 1)
     return mfccs

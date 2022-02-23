@@ -5,10 +5,11 @@ from keras import models
 from utils import plot_history
 from mfcc import generate_or_load_mfccs
 from keras.losses import BinaryCrossentropy
+from keras.metrics import BinaryAccuracy, Precision
 from tensorflow.keras.utils import plot_model
 from spectogram import generate_or_load_spectograms
 from sklearn.model_selection import train_test_split
-from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
+from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
 # config logger
 logging.basicConfig(level=logging.INFO,
                     format="---------------------\n%(levelname)s %(asctime)s:\n%(message)s",
@@ -38,22 +39,25 @@ def create_model():
     log.info('Creating model')
     cnn = models.Sequential()
     cnn.add(Conv2D(32, (13, 1),
-                   activation='tanh',
+                   activation='relu',
                    padding='same',
                    input_shape=(13, 300, 1)))
     cnn.add(MaxPooling2D((2, 10)))
 
-    cnn.add(Conv2D(64, (2, 5), activation='tanh', padding='same'))
+    cnn.add(Conv2D(64, (2, 5), activation='relu', padding='same'))
     cnn.add(MaxPooling2D((3, 15)))
+    cnn.add(Dropout(0.25))
 
     cnn.add(Flatten())
 
-    cnn.add(Dense(64, activation='tanh'))
+    cnn.add(Dense(64, activation='relu'))
+    cnn.add(Dropout(0.25))
 
-    cnn.add(Dense(1))
-    cnn.compile(optimizer=tf.keras.optimizers.Adam(0.0008),
-                loss=BinaryCrossentropy(from_logits=True),
-                metrics=['accuracy'])
+    cnn.add(Dense(1, activation='sigmoid'))
+    cnn.compile(optimizer=tf.keras.optimizers.Adam(),
+                loss=BinaryCrossentropy(from_logits=False),
+                metrics=[BinaryAccuracy(name='accuracy'),
+                         Precision(name='precision')])
     return cnn
 
 
@@ -62,21 +66,23 @@ def train_model(model, x_train, x_test, y_train, y_test):
 
     history = model.fit(x_train,
                         y_train,
-                        epochs=50,
+                        epochs=100,
                         batch_size=32,
                         validation_data=(x_test, y_test))
     return history
 
 
 def main():
-    x_train, x_test, y_train, y_test = get_dataset(use_spectograms=False)
+    use_spectograms = True
+    x_train, x_test, y_train, y_test = get_dataset(
+        use_spectograms=use_spectograms)
     cnn = create_model()
     history = train_model(cnn, x_train, x_test, y_train, y_test)
     plot_model(cnn, 'model.png', show_layer_names=False,
                show_shapes=True, dpi=200)
-    plot_history(history)
-    test_loss, test_acc = cnn.evaluate(x_test, y_test)
-    log.info(f"Accuracy: {test_acc}")
+    plot_history(history, use_spectograms=use_spectograms)
+    print("Evaluation:")
+    cnn.evaluate(x_test, y_test)
     return cnn, history
 
 
