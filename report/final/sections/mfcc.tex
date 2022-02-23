@@ -29,6 +29,15 @@ Cepstral Coefficients. Ο υπολογισμός τους έγινε στα ήδ
 	\label{melfilter}
 \end{figure}
 
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{../images/a0001_mfcc.png}
+	\caption{Αναπαράσταση τιμών MFCC σε χάρτη θερμότητας για το δείγμα στο σχήμα
+		\ref{a0001_sound}}
+	\label{a0001_mfcc}
+\end{figure}
+
+\subsection{Mel Spectogram}
+
 Το δεύτερο χαρακτηριστικό που εξήχθει είναι το σπεκτόγραμμα mel που αποτελεί
 μια μη γραμμική αναπαράσταση του συχνοτικού περιεχομένου του σήματος. Η
 διαδικασίας υπολογισμού είναι παρόμοια με εκείνη για τα mfcc. Επιγραμματικά τα
@@ -36,12 +45,26 @@ Cepstral Coefficients. Ο υπολογισμός τους έγινε στα ήδ
 
 \begin{itemize}
 	\item Εφαρμογή επικαλυπτόμενων παραθύρων στο σήμα
-  \item Υπολογισμός του φάσματος ενέργειας μέσω του γρήγορου μετασχηματισμού
-    Fourrier
+	\item Υπολογισμός του φάσματος ενέργειας μέσω του γρήγορου μετασχηματισμού
+	      Fourrier
 	\item Μετατροπή του συχνοτικού περιεχομένου σε dB
 	\item Εφαρμογή της κλίμακας mel στο συχνοτικό περιεχόμενο
 \end{itemize}
- 
+
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{../images/a0001_spectogram.png}
+	\caption{Mel σπεκτόγραμμα για το δείγμα στο σχήμα \ref{a0001_sound}}
+	\label{a0001_spectogram}
+\end{figure}
+
+\begin{figure}[H]
+	\includegraphics[width=\textwidth]{../images/a0001.png}
+	\caption{Αναπαράσταση ήχου με αρχή το πρώτο S1 και διάρκεια 3 δευτερόλεπτα}
+	\label{a0001_sound}
+\end{figure}
+
+
 \subsection{Eξαγωγή στην Python}
 Για τις ανάγκες υλοποίησης του νευρωνικού δικτύου ήταν απαραίτητη η εξαγωγή των
 mfcc's από τα φωνοκαρδιογραφήματα  που είχαμε στη διάθεσή μας. Μετά την
