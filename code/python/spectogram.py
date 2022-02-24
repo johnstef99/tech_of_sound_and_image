@@ -1,6 +1,5 @@
 import librosa
 import logging
-import matplotlib
 import numpy as np
 import pandas as pd
 import librosa.display
@@ -11,8 +10,6 @@ from matplotlib import pyplot as plt
 from sklearn.preprocessing import normalize
 
 log = logging.getLogger(__name__)
-font = {'size': 22}
-matplotlib.rc('font', **font)
 
 
 def generate_melspectogram(name: str, savefig: bool = False, show: bool = False):
@@ -45,12 +42,12 @@ def generate_melspectogram(name: str, savefig: bool = False, show: bool = False)
         win_length=int(sr*0.005), n_mels=13)
     ps_dB = librosa.power_to_db(ps, ref=np.max)
     if(savefig):
-        fig, ax = plt.subplots(figsize=(40, 13))
+        fig, ax = plt.subplots(figsize=(16, 4))
         img = specshow(ps_dB, sr=sr, x_axis="time", y_axis="mel", ax=ax,
                        hop_length=int(sr*0.01))
         fig.colorbar(img, ax=ax, format='%+2.0f dB')
         ax.set(title=f"Mel-frequency spectrogram of {name}")
-        fig.savefig(f"{name}_spectogram.png", bbox_inches='tight', dpi=400)
+        fig.savefig(f"{name}_spectogram.png", bbox_inches='tight', dpi=120)
     else:
         if(show):
             fig, ax = plt.subplots()

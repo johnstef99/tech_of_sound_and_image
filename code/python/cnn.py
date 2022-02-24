@@ -5,7 +5,7 @@ from keras import models
 from utils import plot_history
 from mfcc import generate_or_load_mfccs
 from keras.losses import BinaryCrossentropy
-from keras.metrics import BinaryAccuracy, Precision
+from keras.metrics import BinaryAccuracy, Precision, Recall
 from tensorflow.keras.utils import plot_model
 from spectogram import generate_or_load_spectograms
 from sklearn.model_selection import train_test_split
@@ -57,7 +57,8 @@ def create_model():
     cnn.compile(optimizer=tf.keras.optimizers.Adam(),
                 loss=BinaryCrossentropy(from_logits=False),
                 metrics=[BinaryAccuracy(name='accuracy'),
-                         Precision(name='precision')])
+                         Precision(name='precision'),
+                         Recall(name='recall')])
     return cnn
 
 

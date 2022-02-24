@@ -1,5 +1,4 @@
 import logging
-import matplotlib
 import numpy as np
 import pandas as pd
 from os.path import exists
@@ -10,8 +9,6 @@ from python_speech_features import mfcc
 from sklearn.preprocessing import normalize
 
 log = logging.getLogger(__name__)
-font = {'size': 22}
-matplotlib.rc('font', **font)
 
 
 def read_audio(name: str):
@@ -85,12 +82,12 @@ def generate_mfcc(name: str, savefig: bool = False, show: bool = False):
     mfccs = mfcc(samples, sr, winlen=0.02, winstep=0.01, appendEnergy=True)
     mfccs = mfccs.T
     if(savefig):
-        fig, ax = plt.subplots(figsize=(40, 13))
+        fig, ax = plt.subplots(figsize=(16, 4))
         img = specshow(mfccs, sr=sr, x_axis="time", ax=ax,
                        hop_length=int(sr*0.01))
         fig.colorbar(img, ax=ax)
         ax.set(title=f"MFCC of {name}")
-        fig.savefig(f"{name}_mfcc.png", bbox_inches='tight', dpi=400)
+        fig.savefig(f"{name}_mfcc.png", bbox_inches='tight', dpi=120)
     else:
         if(show):
             fig, ax = plt.subplots()
