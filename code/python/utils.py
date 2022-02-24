@@ -40,8 +40,8 @@ def plot_history(history, use_spectograms=False):
     plt.close()
 
     setup()
-    plt.plot(history.history['precision'], label='loss')
-    plt.plot(history.history['val_precision'], label='val_loss')
+    plt.plot(history.history['precision'], label='precision')
+    plt.plot(history.history['val_precision'], label='val_precision')
     plt.xlabel('Epoch')
     plt.ylabel('Precision')
     plt.legend(loc='best', framealpha=0)
@@ -50,10 +50,10 @@ def plot_history(history, use_spectograms=False):
     plt.close()
 
     setup()
-    plt.plot(history.history['recall'], label='loss')
-    plt.plot(history.history['val_recall'], label='val_loss')
+    plt.plot(history.history['recall'], label='recall')
+    plt.plot(history.history['val_recall'], label='val_recall')
     plt.xlabel('Epoch')
-    plt.ylabel('recall')
+    plt.ylabel('Recall')
     plt.legend(loc='best', framealpha=0)
     plt.savefig(prefix+'recall.png', dpi=120,
                 transparent=False, bbox_inches='tight')
