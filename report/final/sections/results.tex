@@ -3,38 +3,100 @@
 
 \begin{document}
 
+Στα παρακάτω σχήματα φαίνονται τρις σημαντικές μετρικές που καταγράφαμε κατά την
+διάρκεια της εκπαίδευσης.
+
+Πρώτη είναι η μετρική \textbf{Accuracy} που μας δείχνει πόσο συχνά οι προβλέψεις
+του νευρωνικού δικτύου είναι σωστές.
+
+Δεύτερη είναι η μετρική \textbf{Loss} και πιο συγκεκριμένα στα σχήματα
+\ref{mfcc_loss} και \ref{spectogram_recall} χρησιμοποιήσαμε την \textit{Binary
+	crossentropy loss function} η οποία υπολογίζει πόσο απέχει η πρόβλεψη του
+νευρωνικού από την πραγματική τιμή μέσω της παραπάνω συνάρτησης
+\ref{eq:binary_crossentropy}.
+
+\begin{equation}\label{eq:binary_crossentropy}
+	\mathrm{Loss} = - \frac{1}{\mathrm{output \atop size}} \sum_{i=1}^{\mathrm{output \atop size}} y_i \cdot \mathrm{log}\; {\hat{y}}_i + (1-y_i) \cdot \mathrm{log}\; (1-{\hat{y}}_i)
+\end{equation}
+
+Τελευταία μετρική είναι η \textbf{Recall} την οποία θεωρήσαμε πολύ σημαντική για
+το συγκεκριμένο πρόβλημα, καθώς μας δείχνει το ποσοστό των σωστά
+κατηγοροποιημένων ατόμων με πρόβλημα, από το σύνολο όλων αυτών τον ατόμων
+(ιδανικά θα θέλαμε να έχουμε 100\% recall, δηλαδή να μπορούμε να εντοπίσουμε
+κάθε άτομο με καρδιακό πρόβλημα).
+
 \subsection{Χρήση MFCC}
+
+Με την χρήση των MFCC ως είσοδο στο νευρωνικό το accuracy σταθεροποιείτε κοντά
+στο 81\%, ενώ το validation\_loss έχει αρκετή απόκλιση από το loss και κυμαίνετε
+ανάμεσα στο 0.4 με 0.5. Το recall έχει δραματικές μεταβολές από εποχή σε εποχή
+κάτι που θα εξηγηθεί παρακάτω, με μια μέση τιμή 45\% μετά την
+40\textsuperscript{στη} εποχή.
+
 \begin{figure}[H]
 	\center
-	\includegraphics[width=0.8\textwidth]{../images/accuracy_mfcc.png}
-	\caption{Ακρίβεια νευρωνικού δικτύου ανά εποχή με χρήση \textbf{MFCCs} ως
+	\includegraphics[width=\textwidth]{../images/mfcc_accuracy.png}
+	\caption{Accuracy νευρωνικού δικτύου ανά εποχή με χρήση \textbf{MFCCs} ως
 		είσοδο}
-	\label{accuracy_mfcc}
+	\label{mfcc_accuracy}
 \end{figure}
 \begin{figure}[H]
 	\center
-	\includegraphics[width=0.8\textwidth]{../images/loss_mfcc.png}
-	\caption{Απώλειες νευρωνικού δικτύου ανά εποχή με χρήση \textbf{MFCCs} ως
+	\includegraphics[width=\textwidth]{../images/mfcc_loss.png}
+	\caption{Loss νευρωνικού δικτύου ανά εποχή με χρήση \textbf{MFCCs} ως
 		είσοδο}
-	\label{loss_mfcc}
+	\label{mfcc_loss}
+\end{figure}
+\begin{figure}[H]
+	\center
+	\includegraphics[width=\textwidth]{../images/mfcc_recall.png}
+	\caption{Recall νευρωνικού δικτύου ανά εποχή με χρήση \textbf{MFCCs} ως
+		είσοδο}
+	\label{mfcc_recall}
 \end{figure}
 
 
 \subsection{Χρήση Mel spectogram}
+
+Όταν χρησιμοποιήσαμε τα mel σπεκτογράμματα ως είσοδο στο νευρωνικό δίκτυο,
+είδαμε ελαφρώς καλύτερα αποτελέσματα. Αφού πλέον η ακρίβεια σταθεροποιείτε στο
+86\% και το validation\_loss δεν απέχει τόσο από το loss με μέση τιμή κάτω από
+0.35. Όσο αναφορά το recall, έχουμε κι εδώ μεγάλες μεταβολές από εποχή σε εποχή
+με την τιμή να βρίσκετε γύρω από το 57\%.
+
 \begin{figure}[H]
 	\center
-	\includegraphics[width=0.8\textwidth]{../images/accuracy_spectogram.png}
-	\caption{Ακρίβεια νευρωνικού δικτύου ανά εποχή με χρήση \textbf{spectogram} ως
+	\includegraphics[width=\textwidth]{../images/spectogram_accuracy.png}
+	\caption{Accuracy νευρωνικού δικτύου ανά εποχή με χρήση \textbf{spectogram} ως
 		είσοδο}
-	\label{accuracy_spectogram}
+	\label{spectogram_accuracy}
 \end{figure}
 \begin{figure}[H]
 	\center
-	\includegraphics[width=0.8\textwidth]{../images/loss_spectogram.png}
-	\caption{Απώλειες νευρωνικού δικτύου ανά εποχή με χρήση \textbf{spectogram} ως
+	\includegraphics[width=\textwidth]{../images/spectogram_loss.png}
+	\caption{Loss νευρωνικού δικτύου ανά εποχή με χρήση \textbf{spectogram} ως
 		είσοδο}
-	\label{loss_spectogram}
+	\label{spectogram_loss}
 \end{figure}
+\begin{figure}[H]
+	\center
+	\includegraphics[width=\textwidth]{../images/spectogram_recall.png}
+	\caption{Recall νευρωνικού δικτύου ανά εποχή με χρήση \textbf{spectogram} ως
+		είσοδο}
+	\label{spectogram_recall}
+\end{figure}
+
+\subsection{Συμπεράσματα}
+
+Όπως είδαμε παραπάνω η καλύτερη προσπάθεια μας είχε 86\% accuracy με 57\% recall
+όμως ακόμα κι αυτή η προσπάθεια δεν είναι ικανοποιητική λόγω των άνισων
+δεδομένων. Τα δείγματα που παρείχε η Physionet \cite{physionet} ήταν συνολικά
+3228 από τα οποία μόνο τα 665 ήταν από ανθρώπους με καρδιοπάθεια. Αυτό σημαίνει
+ότι ακόμα κι ένα νευρωνικό που θα κατηγοροποιούσε όλα τα δείγματα ως 0 (δηλαδή
+χωρίς καρδιοπάθεια) θα είχε accuracy περίπου 80\%. Για αυτό λοιπόν βλέπουμε και
+τις μεγάλες μεταβολές από εποχή σε εποχή στο recall καθώς το δίκτυο είναι biased
+στο να κατηγοροποιήσει κάθε δείγμα στην κλάση ως άτομο χωρίς καρδιοπάθεια και
+αυτός ήταν κι ο λόγος που θεωρήσαμε την μετρική recall πολύ σημαντική.
 
 
 \end{document}
