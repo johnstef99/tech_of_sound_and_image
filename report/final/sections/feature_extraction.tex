@@ -1,3 +1,8 @@
+\documentclass[../main.tex]{subfiles}
+\graphicspath{{\subfix{../images/}}}
+
+\begin{document}
+
 \subsection{Mel Frequency Cepstral Coefficients}
 Ένα από τα χαρακτηριστικά που εξάγαμε από τα σήματα καρδιακών ήχων που είχαμε
 στη διάθεση μας ώστε να εκπαιδεύσουμε το νευρωνικό δίκτυο είναι τα Mel Frequency
@@ -51,19 +56,11 @@ Cepstral Coefficients. Ο υπολογισμός τους έγινε στα ήδ
 	\item Εφαρμογή της κλίμακας mel στο συχνοτικό περιεχόμενο
 \end{itemize}
 
-
 \begin{figure}[H]
 	\includegraphics[width=\textwidth]{../images/a0001_spectogram.png}
 	\caption{Mel σπεκτόγραμμα για το δείγμα στο σχήμα \ref{a0001_sound}}
 	\label{a0001_spectogram}
 \end{figure}
-
-\begin{figure}[H]
-	\includegraphics[width=\textwidth]{../images/a0001.png}
-	\caption{Αναπαράσταση ήχου με αρχή το πρώτο S1 και διάρκεια 3 δευτερόλεπτα}
-	\label{a0001_sound}
-\end{figure}
-
 
 \subsection{Eξαγωγή στην Python}
 Για τις ανάγκες υλοποίησης του νευρωνικού δικτύου ήταν απαραίτητη η εξαγωγή των
@@ -77,3 +74,5 @@ mfcc's από τα φωνοκαρδιογραφήματα  που είχαμε �
 από τη βιβλιοθήκη \verb|librosa.feature| η συνάρτηση \verb|melspectogram| που
 πάλι η έξοδος του αποθηκεύεται σε μορφή εικόνας. Η συνάρτηση εφαρμόστηκε στα
 ίδια ακριβώς σήματα με εκείνα που ήταν είσοδος της mfcc.
+
+\end{document}
